@@ -116,40 +116,12 @@ Activity ac;
         View itemView = inflater.inflate(listLayout,parent,false);
         TextView name = itemView.findViewById(R.id.name);
         TextView email = itemView.findViewById(R.id.mes);
-        ImageView image = itemView.findViewById(R.id.imageView191);
-        image.setClickable(true);
+        ImageView image = itemView.findViewById(R.id.imageView190);
+
 
 
         try {
-            image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-
-                }
-            });
- /* image.setOnLongClickListener(new View.OnLongClickListener() {
-    @Override
-    public boolean onLongClick(View v) {
-        image.setClickable(false);
-        Bundle bundle = new Bundle();
-        try {
-            bundle.putString("id", list.get(position).getString("id"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        previewmes an = new previewmes();
-        an.setArguments(bundle);
-        fr.beginTransaction().setCustomAnimations(
-                R.anim.fade_inv,  // enter
-                R.anim.fade_outv,  // exit
-                R.anim.fade_inv,   // popEnter
-                R.anim.fade_outv  // popExit
-        ).replace(R.id.nav_host_fragment_activity_main1, an).setReorderingAllowed(true).addToBackStack(null).commit();
-        new Hoverlog(image).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        return false;
-    }
-});  */
             name.setText(list.get(position).getString("name"));
             email.setText(list.get(position).getString("message"));
             String urla = list.get(position).getString("img");

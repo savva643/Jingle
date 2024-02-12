@@ -6,4 +6,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="play">Play</string>
     <string name="pause">Pause</string>
+    <string name="loveplaylist">Love playlist</string>
+    <string name="newplaylist">Create playlist</string>
 </resources>
