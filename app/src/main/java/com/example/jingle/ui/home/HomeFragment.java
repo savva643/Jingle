@@ -63,9 +63,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import jp.wasabeef.blurry.Blurry;
@@ -74,8 +77,8 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
-
-    PlayerView video = null;
+    Timer mTimer;
+    PlayerView muspla = null;
     ExoPlayer player = null;
     TextView ti;
     TextView tis;
@@ -85,10 +88,10 @@ public class HomeFragment extends Fragment {
     public void intvid(){
         ti = getView().findViewById(R.id.textView19);
         tis = getView().findViewById(R.id.textView20);
-        video = getView().findViewById(R.id.videoView2);
+        muspla = getView().findViewById(R.id.videoView2);
         player = new ExoPlayer.Builder(getContext()).build();
-        video.setPlayer(player);
-
+        muspla.setPlayer(player);
+        mProgressBari = getView().findViewById(R.id.seekBar);
     }
     public void relis(){
         if (player != null){
@@ -99,26 +102,75 @@ public class HomeFragment extends Fragment {
     public void startnex(String gg){
         relis();
         intvid();
-        if(hal != null) {
-            ispg = false;
-        }
         MediaItem mediaItem = MediaItem.fromUri(Uri.parse(gg));
         player.setMediaItem(mediaItem);
         player.prepare();
-
+        if(mTimer != null){
+            mTimer.cancel();
+        }
+        mTimer = new Timer();
         player.play();
         player.addListener(new Player.Listener() {
             @Override
             public void onPlaybackStateChanged(int playbackState) {
                 Player.Listener.super.onPlaybackStateChanged(playbackState);
                 if(playbackState == Player.STATE_READY){
-                     updateSeekBar();
-                 }else{
-                     Toast.makeText(getContext(), "den", Toast.LENGTH_SHORT).show();
-                 }
+                    mProgressBari.setOnSeekBarChangeListener(mListenerSb);
+                    mTimer.schedule(new ProgressUpdate(), 0, 500);
+                }else{
+
+                }
+         }
+        });
     }
-});
-    }
+
+
+
+    SeekBar.OnSeekBarChangeListener mListenerSb = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            /* Start playing from the position the user dragged to */
+            if (fromUser) {
+                    player.seekTo(progress);
+            }
+
+        } // end onProgressChanged
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+        } // end onStartTrackingTouch
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            ti.setText(formatPosition(seekBar.getProgress()));
+        } // end onStopTrackingTouch
+    }; // end mListenerSb
+
+    private class ProgressUpdate extends TimerTask {
+        @Override
+        public void run() {
+                getActivity().runOnUiThread(() -> {
+                    long mStartPos = player.getContentPosition();
+                    mProgressBari.setProgress((int) mStartPos);
+                    ti.setText(formatPosition(mStartPos));
+                    long mDurationPos = player.getDuration();
+                    mProgressBari.setMax((int) mDurationPos);
+                    tis.setText(formatPosition(mDurationPos));
+                }); // end runOnUiThread
+        } // end run
+    } // end ProgressUpdate
+
+    /**
+     * Format the start and end positions of the music progress bar, displaying "minute:second"
+     *
+     * @param pos music progress bar position
+     * @return "minute:second"
+     */
+    public String formatPosition(long pos) {
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat sdf = new SimpleDateFormat("mm:ss"); // "minute:second" format
+        return sdf. format(pos);
+    } // end format
 
 
 
@@ -157,130 +209,6 @@ public class HomeFragment extends Fragment {
             // from Bitmap
             Blurry.with(getContext()).from(result).into(imageView);
         }
-    }
-    Thread hal;
-    boolean ispg = true;
-    private void updateSeekBar() {
-        ispg = true;
-        final long[] duration = {player.getDuration()};
-        final int[] prgcur = {0};
-        mProgressBari = getView().findViewById(R.id.seekBar);
-        mProgressBari.setMax(1000);
-        final long[] current = {0};
-        hg = 0;
-        hal = new Thread() {
-            @Override
-            public void run() {
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        prgcur[0] = mProgressBari.getProgress();
-                    }
-                });
-                while (prgcur[0] <= 100) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            current[0] = player.getCurrentPosition();
-                        }
-                    });
-
-                    if (!ispg) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                        if (player.isPlaying()) {
-                            player.pause();
-                        }
-                            }
-                        });
-                        break;
-                    }
-                    try {
-
-
-                        long minutes = TimeUnit.MILLISECONDS.toMinutes(current[0]);
-                        long seconds = TimeUnit.MILLISECONDS.toSeconds(current[0]);
-                        long seconds2 = TimeUnit.MINUTES.toSeconds(minutes);
-                        String seco;
-                        String seco6;
-                        long minutes6 = TimeUnit.MILLISECONDS.toMinutes(duration[0]);
-                        long seconds6 = TimeUnit.MILLISECONDS.toSeconds(duration[0]);
-                        long seconds26 = TimeUnit.MINUTES.toSeconds(minutes6);
-
-                        if (seconds != seconds3) {
-                            if (seconds - seconds2 < 10) {
-                                seco = "0" + String.valueOf(seconds - seconds2);
-                            } else {
-                                seco = String.valueOf(seconds - seconds2);
-                            }
-                            time = String.valueOf(minutes) + ":" + seco;
-                            seconds3 = TimeUnit.MILLISECONDS.toSeconds(current[0]);
-
-                            if (seconds6 - seconds26 < 10) {
-                                seco6 = "0" + String.valueOf(seconds6 - seconds26);
-                            } else {
-                                seco6 = String.valueOf(seconds6 - seconds26);
-                            }
-                            time6 = String.valueOf(minutes6) + ":" + seco6;
-                            seconds36 = TimeUnit.MILLISECONDS.toSeconds(duration[0]);
-
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                        mProgressBari.setProgress((int) (current[0] * 1000 / duration[0]));
-                            }
-                        });
-                        if (player != null) {
-                            if (hg != 1) {
-                                if (!time6.equals("null")) {
-                                    tis.setText(time6);
-
-                                } else {
-                                    String seco6;
-                                    long minutes6 = TimeUnit.MILLISECONDS.toMinutes(duration[0]);
-                                    long seconds6 = TimeUnit.MILLISECONDS.toSeconds(duration[0]);
-                                    long seconds26 = TimeUnit.MINUTES.toSeconds(minutes6);
-                                    if (seconds6 - seconds26 < 10) {
-                                        seco6 = "0" + String.valueOf(seconds6 - seconds26);
-                                    } else {
-                                        seco6 = String.valueOf(seconds6 - seconds26);
-                                    }
-                                    time6 = String.valueOf(minutes6) + ":" + seco6;
-                                    seconds36 = TimeUnit.MILLISECONDS.toSeconds(duration[0]);
-                                    tis.setText(time6);
-                                }
-                                hg = 1;
-                            }
-                        }
-                        ti.setText(time);
-                        if (prgcur[0] >= 100) {
-
-                            break;
-                        }
-
-                    } catch (Exception ignored) {
-                    }
-
-                }
-            }
-
-        };
-        hal.start();
     }
 
 
@@ -323,120 +251,10 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private class MyAsync extends AsyncTask<Void, Integer, Void> {
-        int duration = 0;
-        int current = 0;
 
-        private String url;
-
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-
-                    do {
-
-
-                            if (isCancelled()) break;
-                            if (ms.isCancelled()) {
-                                if (player.isPlaying()) {
-                                    player.pause();
-                                }
-                                break;
-                            }
-                            try {
-
-                                current = (int) player.getCurrentPosition();
-                                duration = (int) player.getDuration();
-                                long minutes = TimeUnit.MILLISECONDS.toMinutes(current);
-                                long seconds = TimeUnit.MILLISECONDS.toSeconds(current);
-                                long seconds2 = TimeUnit.MINUTES.toSeconds(minutes);
-                                String seco;
-                                String seco6;
-                                long minutes6 = TimeUnit.MILLISECONDS.toMinutes(duration);
-                                long seconds6 = TimeUnit.MILLISECONDS.toSeconds(duration);
-                                long seconds26 = TimeUnit.MINUTES.toSeconds(minutes6);
-
-                                if (seconds != seconds3) {
-                                    if (seconds - seconds2 < 10) {
-                                        seco = "0" + String.valueOf(seconds - seconds2);
-                                    } else {
-                                        seco = String.valueOf(seconds - seconds2);
-                                    }
-                                    time = String.valueOf(minutes) + ":" + seco;
-                                    seconds3 = TimeUnit.MILLISECONDS.toSeconds(current);
-
-                                    if (seconds6 - seconds26 < 10) {
-                                        seco6 = "0" + String.valueOf(seconds6 - seconds26);
-                                    } else {
-                                        seco6 = String.valueOf(seconds6 - seconds26);
-                                    }
-                                    time6 = String.valueOf(minutes6) + ":" + seco6;
-                                    seconds36 = TimeUnit.MILLISECONDS.toSeconds(duration);
-
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            System.out.println("durationуавцыа - " + duration + " currentауыаау- "
-                                    + current);
-                            try {
-                                publishProgress((int) (current * 100 / duration));
-                                if (mProgressBari.getProgress() >= 100) {
-                                    break;
-                                }
-
-                            } catch (Exception e) {
-                            }
-
-
-                    } while (mProgressBari.getProgress() <= 100);
-
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            System.out.println(values[0]);
-            mProgressBari.setProgress(values[0]);
-
-            if(player != null) {
-                if(hg != 1) {
-                    if(!time6.equals("null")) {
-                        tis.setText(time6);
-
-                    }else{
-                        duration = (int) player.getDuration();
-                        String seco6;
-                        long minutes6 = TimeUnit.MILLISECONDS.toMinutes(duration);
-                        long seconds6 = TimeUnit.MILLISECONDS.toSeconds(duration);
-                        long seconds26 = TimeUnit.MINUTES.toSeconds(minutes6);
-                        if (seconds6 - seconds26 < 10) {
-                            seco6 = "0" + String.valueOf(seconds6 - seconds26);
-                        } else {
-                            seco6 = String.valueOf(seconds6 - seconds26);
-                        }
-                        time6 = String.valueOf(minutes6) + ":" + seco6;
-                        seconds36 = TimeUnit.MILLISECONDS.toSeconds(duration);
-                        tis.setText(time6);
-                    }
-                    hg = 1;
-                }
-            }
-            ti.setText(time);
-        }
-    }
     public SeekBar mProgressBari;
-    MyAsync ms;
+
     public int eg = 0;
-    public int hg = 0;
-    long seconds3 = 0;
-    long seconds36 = 0;
-    public String time6 = "null";
-    public String time;
     public int type = 2;
     public static String play = "1";
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -475,7 +293,7 @@ public class HomeFragment extends Fragment {
         String token = preferences.getString("token", "");
         ListView listView = getView().findViewById(R.id.listcomment);
         CardView cs = getView().findViewById(R.id.viopie);
-        String url = "https://kompot.fun/gettopmusic";
+        String url = "https://kompot.site/gettopmusic";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -513,7 +331,6 @@ public class HomeFragment extends Fragment {
                                         try {
                                             try {
                                                 if (player != null) {
-                                                    ms.cancel(true);
                                                     player.stop();
                                                 }
                                             } catch (Exception e) {
@@ -589,32 +406,7 @@ public class HomeFragment extends Fragment {
                                                 e.printStackTrace();
                                             }
 
-                                            mProgressBar.setClickable(true);
-                                            mProgressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                                                @Override
-                                                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                                                    if (fromUser) {
-                                                        if (player != null) {
-                                                            try {
-                                                                int dira = (int) player.getDuration();
-                                                                player.seekTo(progress * dira / 1000);
-                                                            } catch (IllegalStateException e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                        }
-                                                    }
-                                                }
 
-                                                @Override
-                                                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                                                }
-
-                                                @Override
-                                                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                                                }
-                                            });
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }

@@ -71,7 +71,7 @@ public class DashboardFragment extends Fragment {
         ProgressBar mProgressBar = getView().findViewById(R.id.progressBar22);
         SwipeRefreshLayout mSwipeRefreshLayout = getView().findViewById(R.id.dvjdvx);
         ListView listView = getView().findViewById(R.id.listView2);
-        String url = "https://kompot.fun/getmusicplaylist";
+        String url = "https://kompot.site/getmusicplaylist";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backg"
+    tools:context=".account">
+
+    <TextView
+        android:id="@+id/textView3e"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_medium"
+        android:text="email"
+        android:textColor="@color/grey"
+        android:textSize="20sp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView190"
+        app:layout_constraintStart_toStartOf="@+id/imageView190"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_bold"
+        android:text="name"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView190"
+        app:layout_constraintStart_toStartOf="@+id/imageView190"
+        app:layout_constraintTop_toBottomOf="@+id/imageView190"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/gilroy_bold"
+        android:text="Keep Pixel ID"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView190"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@color/blick"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView3l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_bold"
+        android:text="Keep Pixel"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:translationZ="3dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viopie"
+        app:layout_constraintStart_toStartOf="@+id/viopie"
+        app:layout_constraintTop_toTopOf="@+id/viopie" />
+
+    <TextView
+        android:id="@+id/textView3l2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_bold"
+        android:text="Сменить аккаунт"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:translationZ="3dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viopie2"
+        app:layout_constraintStart_toStartOf="@+id/viopie2"
+        app:layout_constraintTop_toTopOf="@+id/viopie2" />
+
+    <TextView
+        android:id="@+id/textView3l4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_bold"
+        android:text="Выйти из аккаунта"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:translationZ="3dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viopie4"
+        app:layout_constraintStart_toStartOf="@+id/viopie4"
+        app:layout_constraintTop_toTopOf="@+id/viopie4" />
+
+    <TextView
+        android:id="@+id/textView3le"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_extrabold"
+        android:text="Deluxe"
+        android:layout_marginBottom="2dp"
+        android:translationZ="3dp"
+        android:textColor="@color/deluxei"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/viopie"
+        app:layout_constraintStart_toEndOf="@+id/textView3l"
+        app:layout_constraintTop_toTopOf="@+id/viopie" />
+
+
+    <TextView
+        android:id="@+id/textView3ly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_medium"
+        android:text="не активна"
+        android:translationZ="3dp"
+        android:textColor="@color/grey"
+        android:textSize="20sp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viopie"
+        app:layout_constraintEnd_toEndOf="@+id/viopie"
+        app:layout_constraintTop_toTopOf="@+id/viopie" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/viopie"
+        android:layout_width="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="56dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3e" >
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/spec" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/viopie2"
+        android:layout_width="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="56dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viopie" >
+
+        <ImageView
+            android:id="@+id/imageView32"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/spec" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/viopie4"
+        android:layout_width="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="56dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viopie2" >
+
+        <ImageView
+            android:id="@+id/imageView34"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/spec" />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

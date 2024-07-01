@@ -1,10 +1,15 @@
 package com.example.jingle;
 
+import android.hardware.display.DisplayManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.example.jingle.ui.MyPresentation;
 import com.example.jingle.ui.dashboard.DashboardFragment;
 import com.example.jingle.ui.home.HomeFragment;
 import com.example.jingle.ui.notifications.NotificationsFragment;
@@ -62,6 +67,44 @@ public class MainActivity extends AppCompatActivity {
         ViewPager2 viewPager = findViewById(R.id.viewpager);
         FragmentStateAdapter pagerAdapter = new ScreenSlidePagerAdapter((AppCompatActivity)this);
         viewPager.setAdapter(pagerAdapter);
-    }
 
+        displayManager = (DisplayManager) getSystemService(DISPLAY_SERVICE);
+        if (displayManager != null) {
+            Toast.makeText(this, "sdfsdf", Toast.LENGTH_SHORT).show();
+            Display[] dssda = displayManager.getDisplays();
+            Log.i("sdfdsa",String.valueOf((dssda[1].getDisplayId())));
+            Display display = displayManager.getDisplay(dssda[1].getDisplayId());
+            showPresentation(display);
+            displayManager.registerDisplayListener(new DisplayManager.DisplayListener() {
+                @Override
+                public void onDisplayAdded(int displayId) {
+                    Log.d("MainActivity", "Display added: " + displayId);
+                    Display display = displayManager.getDisplay(1);
+                    if (display != null && display.getDisplayId() != Display.DEFAULT_DISPLAY) {
+                        showPresentation(display);
+                    }
+                }
+
+                @Override
+                public void onDisplayChanged(int displayId) {
+                    Log.d("MainActivity", "Display changed: " + displayId);
+                }
+
+                @Override
+                public void onDisplayRemoved(int displayId) {
+                    Log.d("MainActivity", "Display removed: " + displayId);
+                    if (presentation != null && presentation.getDisplay().getDisplayId() == displayId) {
+                        presentation.dismiss();
+                        presentation = null;
+                    }
+                }
+            }, null);
+        }
+    }
+    private void showPresentation(Display display) {
+        presentation = new MyPresentation(this, display, this);
+        presentation.show();
+    }
+    private DisplayManager displayManager;
+    private MyPresentation presentation;
 }
