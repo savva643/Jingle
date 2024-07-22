@@ -52,11 +52,18 @@ public class MyPresentation extends Presentation {
         LinearLayoutManager dsad = new LinearLayoutManager(getContext());
         dsad.setOrientation(RecyclerView.HORIZONTAL);
         appDrawer.setLayoutManager(dsad);
-        appDrawer.setAdapter(new AppAdapter(apps, packageManager));
+        appDrawer.setAdapter(new AppAdapter(apps, packageManager, activityi));
     }
 
     @Override
     public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_A:
+            {
+                Log.i("kjjk","kkhj");
+                return true;
+            }
+        }
         return super.onKeyDown(keyCode, event);
     }
 }

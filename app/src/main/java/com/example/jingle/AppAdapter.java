@@ -1,5 +1,8 @@
 package com.example.jingle;
 
+import static java.security.AccessController.getContext;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -8,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.motion.widget.MotionLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -18,10 +23,11 @@ import java.util.List;
 public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> {
     private List<ResolveInfo> apps;
     private PackageManager packageManager;
-
-    public AppAdapter(List<ResolveInfo> apps, PackageManager packageManager) {
+    private Activity ac;
+    public AppAdapter(List<ResolveInfo> apps, PackageManager packageManager, Activity acas) {
         this.apps = apps;
         this.packageManager = packageManager;
+        this.ac = acas;
     }
 
     @NonNull
@@ -39,6 +45,16 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> {
         if(position==0){
             Log.i("dfsdf","iouii");
             holder.motionLayout.transitionToEnd();
+            LinearLayout.LayoutParams paramsi = new LinearLayout.LayoutParams((int) (245 * ac.getResources().getDisplayMetrics().density + 0.5f),
+                    (int) (152 * ac.getResources().getDisplayMetrics().density + 0.5f));
+            holder.dsdas.setLayoutParams(paramsi);
+            holder.motionLayout.setLayoutParams(paramsi);
+        }else{
+            LinearLayout.LayoutParams paramsi = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            paramsi.setMargins(0,12,0,0);
+            holder.dsdas.setLayoutParams(paramsi);
+            holder.motionLayout.setLayoutParams(paramsi);
         }
         holder.itemView.setOnClickListener(v -> {
             Intent launchIntent = packageManager.getLaunchIntentForPackage(app.activityInfo.packageName);
@@ -57,11 +73,12 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> {
 
         ImageView appIcon;
         MotionLayout motionLayout;
-
+        LinearLayout dsdas;
         public AppViewHolder(@NonNull View itemView) {
             super(itemView);
             appIcon = itemView.findViewById(R.id.appIcon);
             motionLayout = itemView.findViewById(R.id.mtss);
+            dsdas = itemView.findViewById(R.id.fghhfg);
         }
     }
 }

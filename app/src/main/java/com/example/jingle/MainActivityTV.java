@@ -38,6 +38,6 @@ public class MainActivityTV extends AppCompatActivity {
         LinearLayoutManager dsad = new LinearLayoutManager(this);
         dsad.setOrientation(RecyclerView.HORIZONTAL);
         appDrawer.setLayoutManager(new LinearLayoutManager(this));
-        appDrawer.setAdapter(new AppAdapter(apps, packageManager));
+        appDrawer.setAdapter(new AppAdapter(apps, packageManager, this));
     }
 }

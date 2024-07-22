@@ -42,9 +42,12 @@
         android:layout_width="0dp"
         android:layout_height="140dp"
         android:layout_marginStart="40dp"
-        android:orientation="horizontal"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
+
+        android:foregroundGravity="center_vertical"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

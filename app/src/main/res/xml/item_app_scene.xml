@@ -4,12 +4,15 @@
 
     <ConstraintSet android:id="@+id/start">
         <Constraint android:id="@+id/fgddfg"
+
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="100dp"
             android:layout_height="100dp" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint android:id="@+id/fgddfg"
+            android:layout_marginTop="56dp"
             android:layout_width="213dp"
             android:layout_height="120dp" />
     </ConstraintSet>
