@@ -32,28 +32,53 @@ android {
 }
 
 dependencies {
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    // Kotlin BOM (обеспечивает совместимость Kotlin зависимостей)
+    implementation platform("org.jetbrains.kotlin:kotlin-bom:1.8.0")
+
+    // Базовые библиотеки
+    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "com.google.android.material:material:1.12.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation "androidx.activity:activity:1.8.0"
+    implementation "androidx.annotation:annotation:1.8.0"
+
+    // ZXing и работа с QR-кодами
+    implementation 'com.google.zxing:core:3.5.2'
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
-    implementation 'com.google.zxing:core:3.4.1'
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // ExoPlayer для воспроизведения медиа
     implementation 'com.google.android.exoplayer:exoplayer:2.18.2'
+
+    // Gif-анимации
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
+
+    // Volley для HTTP-запросов
     implementation 'com.android.volley:volley:1.2.1'
-    implementation 'androidx.preference:preference:1.2.1'
+
+    // Blurry для размытия
     implementation 'jp.wasabeef:blurry:4.0.0'
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // SwipeRefreshLayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // Lifecycle (LiveData и ViewModel)
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+
+    // Navigation для навигации
     implementation 'androidx.navigation:navigation-fragment:2.6.0'
     implementation 'androidx.navigation:navigation-ui:2.6.0'
+
+    // Glide для работы с изображениями
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+
+    // Leanback для работы с ТВ интерфейсами
     implementation 'androidx.leanback:leanback:1.0.0'
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    implementation 'androidx.activity:activity:1.8.0'
-    implementation 'androidx.annotation:annotation-jvm:1.8.0'
+
+    // CircleImageView для круглых изображений
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Test dependencies
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

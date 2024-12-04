@@ -1,20 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backg"
+    android:orientation="vertical"
     tools:context=".FirstaStart">
 
-    <ImageView
-        android:id="@+id/imageView"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:scaleType="fitStart"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start|center_horizontal"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/logo_jingle_foreground" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_margin="10dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@mipmap/logo_jingle_foreground" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_weight="1"
+            android:fontFamily="@font/gilroy_bold"
+
+            android:gravity="start|center_horizontal"
+            android:text="Привет, это Jingle."
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|top"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/gilroy_bold"
+            android:text="Настрой колонку, отсканировав QR код, а затем мы сможем пообщатся"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_margin="10dp"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@mipmap/logo_jingle_foreground" />
+
+
+
+    </LinearLayout>
+
+
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/imageView6"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/newfs"/>
+
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|top"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/gilroy_bold"
+            android:text="Настрой колонку, прислонив телефон с приложением KomPot"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_margin="10dp"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/backfulli" />
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

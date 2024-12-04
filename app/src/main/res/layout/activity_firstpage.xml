@@ -6,7 +6,7 @@
     android:background="@color/backg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".firstpage">
+    tools:context=".FirstPage">
 
 
     <ImageView
